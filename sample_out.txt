@@ -1,0 +1,621 @@
+neighbor has all the possible actions: ['North', 'South', 'East', 'West']
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 2 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 3 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 3 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+neighbor has all the possible actions: ['North', 'South', 'East', 'West']
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 2 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 3 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 3 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+neighbor has all the possible actions: ['North', 'South', 'East', 'West']
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 2 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 3 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 20.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 3 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 20.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 20.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+neighbor has all the possible actions: ['North', 'South', 'East', 'West']
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 2 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 3 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 3 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 20.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+neighbor has all the possible actions: ['North', 'South', 'East', 'West']
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 2 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 3 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 3 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 0.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+neighbor has all the possible actions: ['North', 'South', 'East', 'West']
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 2 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 3 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 3 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 0.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+neighbor has all the possible actions: ['North', 'South', 'East', 'West']
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 2 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 3 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 20.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 3 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 10.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 20.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 20.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+returning node with score 30.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+neighbor has all the possible actions: ['North', 'South', 'East', 'West']
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 2 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 3 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+in limited DFS...searching from node at depth 3 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 4 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+in limited DFS...searching from node at depth 5 with score 10.0
+in limited DFS...bestScoreNode is of type <type 'instance'>
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
+returning node with score 20.0 as bestScoreNode from DFS.
