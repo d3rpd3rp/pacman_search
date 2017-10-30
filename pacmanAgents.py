@@ -115,7 +115,6 @@ def searchNeighbors(neighbor):
     print ('search Neighbors returns Node is now of type {} and has score {}'.format(type(bestScoreNode), bestScoreNode.score))
     return (bestScoreNode, neighbor.prevAction)
 
-
 def depthLimitedDFS (nextNeighbor, depth, limit, bestScoreNode):
     #print('in limited DFS...bestScoreNode is of type {}'.format(type(bestScoreNode)))
     legal = nextNeighbor.state.getAllPossibleActions()
@@ -138,19 +137,40 @@ def depthLimitedDFS (nextNeighbor, depth, limit, bestScoreNode):
             else:
                 if depth <= limit:
                     if nextNode.score > bestScoreNode.score:
-                        print('in dlDFS - win state, assigning best score as {}'.format(bestScoreNode.score))
+                        print('in dlDFS - depth less than limit state, assigning best score as {}'.format(bestScoreNode.score))
                         bestScoreNode = nextNode
                         #print('in limited DFS...searching from node at depth {} with score {}'.format(depth, nextNode.score))
                     depth += 1
                     depthLimitedDFS(nextNode, depth, limit, bestScoreNode)
                 else:
                     if nextNode.score > bestScoreNode.score:
-                        print('in dlDFS - win state, assigning best score as {}'.format(bestScoreNode.score))
+                        print('in dlDFS - exceeded limit state, assigning best score as {}'.format(bestScoreNode.score))
                         bestScoreNode = nextNode
         else:
             continue
     #print('returning node with score {} as bestScoreNode from DFS.'.format(bestScoreNode.score))
     return (bestScoreNode)
+
+def findHighScoreKey(nodeDict):
+    items = [(v, k) for k, v in nodeDict.items()]
+    items.sort()
+    items = [(k, v) for v, k in items]
+    #print('items is of type: {}'.format(type(items)))
+    #print('sorted list is: {}'.format(items))
+    maxValue = 0
+    for key, value in items:
+        if value > maxValue:
+            maxValue = value
+            maxKey = key
+        elif value == maxValue:
+            if random.choice([True, False]):
+                maxValue = value
+                maxKey = key
+            else:
+                continue
+        else:
+            continue
+    return (maxKey)
 
 class HillClimberAgent(Agent):
     #some global counters
@@ -171,6 +191,7 @@ class HillClimberAgent(Agent):
         startNode = Node(state)
         #initialize the bestNeighborNodes list (small dictionary of score, stop node)
         bestNeighborNodes = { }
+        firstActions = { }
         legal = state.getAllPossibleActions()
         for action in legal:
             global successorCallCount 
@@ -187,10 +208,13 @@ class HillClimberAgent(Agent):
                     continue
                 else:
                     bestScoreNode, firstAction = searchNeighbors(neighborNode)
-                    print('sequence from bestScoreNode traceback is {}'.format(bestScoreNode.traceback()))
+                    bestNeighborNodes[bestScoreNode] = bestScoreNode.score
+                    firstActions[bestScoreNode] = firstAction
                     print('back in getAction for Hill Climber first action is {}.'.format(firstAction))
-
-        return firstAction
+        maxKey = findHighScoreKey(bestNeighborNodes)
+        direction = 'Directions.' + firstActions[maxKey].upper()
+        #print('trying to return {} of type {} and Directions.whatever is normally of type {}.'.format(direction, type(direction), type(Directions.STOP)))
+        return (direction)
 
 class GeneticAgent(Agent):
     # Initialization Function: Called one time when the game starts
