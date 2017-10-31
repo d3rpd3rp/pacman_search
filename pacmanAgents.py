@@ -100,11 +100,16 @@ class GreedyAgent(Agent):
 def searchNeighbors(neighbor):
     global sequence, successorCallCount 
     bestScoreNode = neighbor
-    legal = neighbor.state.getAllPossibleActions()
+    legal = neighbor.state.getLegalPacmanActions()
     for action in legal:
         #print('neighbor has all the possible actions: {}'.format(legal))
         successorCallCount += 1
         secondNeighborNode = Node(neighbor.state.generatePacmanSuccessor(action), neighbor, action)
+        if secondNeighborNode.state.isWin():
+            #need to field this in the return somewhere
+            return secondNeighborNode
+        elif secondNeighborNode.state.isLose():
+            continue
         if secondNeighborNode.score > bestScoreNode.score:
             print('in seachNeighbors, assigning best score as {}'.format(bestScoreNode.score))
             bestScoreNode = secondNeighborNode
@@ -120,7 +125,7 @@ def searchNeighbors(neighbor):
 
 def depthLimitedDFS (nextNeighbor, depth, limit, bestScoreNode):
     #print('in limited DFS...bestScoreNode is of type {}'.format(type(bestScoreNode)))
-    legal = nextNeighbor.state.getAllPossibleActions()
+    legal = nextNeighbor.state.getLegalPacmanActions()
     for action in legal:
         global successorCallCount 
         successorCallCount += 1
@@ -211,8 +216,14 @@ class HillClimberAgent(Agent):
             print ('sequence is length {} and is {}'.format(len(sequence), sequence))                        
             #direction = 'Directions.' + sequence.pop().upper()
             sequenceLength += 1
-            #print('returning direction as {} and type {}, the Directions.WHATEVER variable is of type {}.'.format(direction, type(direction), type(Directions.EAST)))
-            move = sequence.pop()
+            directions = state.getAllPossibleActions()
+            randomSequence = random.sample(directions, len(directions))
+            if random.choice((True, False)):
+                move = sequence.pop()
+                randomSequence.pop()
+            else:
+                move = randomSequence.pop()
+                sequence.pop()
             return(ReturnDirections(move))
 
         print('sequenceLength is now {}'.format(sequenceLength))
@@ -223,7 +234,7 @@ class HillClimberAgent(Agent):
         #initialize the bestNeighborNodes list (small dictionary of score, stop node)
         bestNeighborNodes = { }
         firstActions = { }
-        legal = state.getAllPossibleActions()
+        legal = state.getLegalPacmanActions()
         for action in legal:
             global successorCallCount 
             successorCallCount += 1
@@ -240,13 +251,8 @@ class HillClimberAgent(Agent):
                     continue
                 else:
                     #must initialize to keep slots for sequence open
-                    directions = ['East', 'West', 'North', 'South', 'Stop']
-                    dirLength = range(len(directions))
-                    positions = random.sample(directions, len(directions))
-                    print('positions[0] is {} and type {}'.format(positions[0], type(positions[0])))
-                    print('random list is {}'.format(positions))
-                    for p in positions:
-                        sequence.append(directions[p])
+                    directions = state.getAllPossibleActions()
+                    randomSequence = random.sample(directions, len(directions))
                     bestScoreNode = searchNeighbors(neighborNode)
                     sequence.append(action)
                     lastThreeActions = bestScoreNode.traceback()
@@ -257,7 +263,12 @@ class HillClimberAgent(Agent):
                     #direction = 'Directions.' + sequence.pop().upper()
                     #print('returning direction as {}'.format(direction))
                     sequenceLength += 1
-                    move = sequence.pop()
+                    if random.choice((True, False)):
+                        move = sequence.pop()
+                        randomSequence.pop()
+                    else:
+                        move = randomSequence.pop()
+                        sequence.pop()
                     return(ReturnDirections(move))
 
 
