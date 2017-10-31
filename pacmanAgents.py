@@ -98,22 +98,25 @@ class GreedyAgent(Agent):
         return random.choice(bestActions)
 
 def searchNeighbors(neighbor):
+    global sequence, successorCallCount 
     bestScoreNode = neighbor
     legal = neighbor.state.getAllPossibleActions()
     for action in legal:
         #print('neighbor has all the possible actions: {}'.format(legal))
-        global successorCallCount 
         successorCallCount += 1
         secondNeighborNode = Node(neighbor.state.generatePacmanSuccessor(action), neighbor, action)
         if secondNeighborNode.score > bestScoreNode.score:
             print('in seachNeighbors, assigning best score as {}'.format(bestScoreNode.score))
             bestScoreNode = secondNeighborNode
+            lastAction = action
         #already took two actions to get second neighbor, so only need a depth of 3 to return a max seq length of 4
         secondNeighborSearchBestNode = depthLimitedDFS(secondNeighborNode, 2, 5, bestScoreNode)
         if secondNeighborSearchBestNode.score > bestScoreNode.score:
             bestScoreNode = secondNeighborSearchBestNode
+            lastAction = action
     print ('search Neighbors returns Node is now of type {} and has score {}'.format(type(bestScoreNode), bestScoreNode.score))
-    return (bestScoreNode, neighbor.prevAction)
+    sequence.append(lastAction)
+    return (bestScoreNode)
 
 def depthLimitedDFS (nextNeighbor, depth, limit, bestScoreNode):
     #print('in limited DFS...bestScoreNode is of type {}'.format(type(bestScoreNode)))
@@ -126,30 +129,46 @@ def depthLimitedDFS (nextNeighbor, depth, limit, bestScoreNode):
             nextNode = Node(nextState, nextNeighbor, action)
             if nextNode.state.isLose():
                 if nextNode.score > bestScoreNode.score:
-                    print('in dlDFS - lost state, assigning best score as {}'.format(bestScoreNode.score))
+                    #print('in dlDFS - lost state, assigning best score as {}'.format(bestScoreNode.score))
                     bestScoreNode = nextNode
                 continue
             elif nextNode.state.isWin():
                 if nextNode.score > bestScoreNode.score:
-                    print('in dlDFS - win state, assigning best score as {}'.format(bestScoreNode.score))
+                    #print('in dlDFS - win state, assigning best score as {}'.format(bestScoreNode.score))
                     bestScoreNode = nextNode 
-                continue
+                    #winning state is terminal
+                    return (bestScoreNode)
             else:
                 if depth <= limit:
                     if nextNode.score > bestScoreNode.score:
-                        print('in dlDFS - depth less than limit state, assigning best score as {}'.format(bestScoreNode.score))
+                        #print('in dlDFS - depth less than limit state, assigning best score as {}'.format(bestScoreNode.score))
                         bestScoreNode = nextNode
                         #print('in limited DFS...searching from node at depth {} with score {}'.format(depth, nextNode.score))
                     depth += 1
                     depthLimitedDFS(nextNode, depth, limit, bestScoreNode)
                 else:
                     if nextNode.score > bestScoreNode.score:
-                        print('in dlDFS - exceeded limit state, assigning best score as {}'.format(bestScoreNode.score))
+                        #print('in dlDFS - exceeded limit state, assigning best score as {}'.format(bestScoreNode.score))
                         bestScoreNode = nextNode
         else:
             continue
     #print('returning node with score {} as bestScoreNode from DFS.'.format(bestScoreNode.score))
+    #sequence = bestScoreNode.traceback()
+    #print ('in dfs sequence is length {} and is {}'.format(len(sequence), sequence))  
     return (bestScoreNode)
+
+def ReturnDirections(move):
+    if move == 'East':
+        return Directions.EAST 
+    elif move == 'West':
+        return Directions.WEST
+    elif move == 'North':
+        return Directions.NORTH
+    elif move == 'South':
+        return Directions.SOUTH
+    else:
+        print('returning STOP. move passed was {}'.format(move))
+        return Directions.STOP
 
 def findHighScoreKey(nodeDict):
     items = [(v, k) for k, v in nodeDict.items()]
@@ -174,17 +193,29 @@ def findHighScoreKey(nodeDict):
 
 class HillClimberAgent(Agent):
     #some global counters
-    global successorCallCount, knownStates
+    global successorCallCount, knownStates, sequenceLength, sequence
+    sequenceLength = 0
     successorCallCount = 0
     knownStates = { }
-
-
+    #must initialize to keep slots for sequence open
+    sequence = [ ]
     # Initialization Function: Called one time when the game starts
     def registerInitialState(self, state):
         return
 
     # GetAction Function: Called with every frame
     def getAction(self, state):
+        #runs in set of five actions, so need counter to control
+        global sequenceLength, sequence
+        while sequence:
+            print ('sequence is length {} and is {}'.format(len(sequence), sequence))                        
+            #direction = 'Directions.' + sequence.pop().upper()
+            sequenceLength += 1
+            #print('returning direction as {} and type {}, the Directions.WHATEVER variable is of type {}.'.format(direction, type(direction), type(Directions.EAST)))
+            move = sequence.pop()
+            return(ReturnDirections(move))
+
+        print('sequenceLength is now {}'.format(sequenceLength))
         #add first entry to dict of known states, for future optimization of not recomputing known state spaces
         knownStates[state] = scoreEvaluation(state)
         #consider the request the root of search and create root (start) node
@@ -200,21 +231,35 @@ class HillClimberAgent(Agent):
             if nextState:
                 neighborNode = Node(state.generatePacmanSuccessor(action), startNode, action)
                 #test if this state is identical to a previous state from actions loop line 162
-                if knownStates[state]:
-                    continue
+                #but does it loop "STOP?"
+                #if knownStates[state]:
+                    #continue
                 #not sure if test is going to break something...
-                elif neighborNode.state.isLose():
+                if neighborNode.state.isLose():
                     #do I need to consider if this node has a high score on it's path somewhere?
                     continue
                 else:
-                    bestScoreNode, firstAction = searchNeighbors(neighborNode)
-                    bestNeighborNodes[bestScoreNode] = bestScoreNode.score
-                    firstActions[bestScoreNode] = firstAction
-                    print('back in getAction for Hill Climber first action is {}.'.format(firstAction))
-        maxKey = findHighScoreKey(bestNeighborNodes)
-        direction = 'Directions.' + firstActions[maxKey].upper()
-        #print('trying to return {} of type {} and Directions.whatever is normally of type {}.'.format(direction, type(direction), type(Directions.STOP)))
-        return (direction)
+                    #must initialize to keep slots for sequence open
+                    directions = ['East', 'West', 'North', 'South', 'Stop']
+                    dirLength = range(len(directions))
+                    positions = random.sample(directions, len(directions))
+                    print('positions[0] is {} and type {}'.format(positions[0], type(positions[0])))
+                    print('random list is {}'.format(positions))
+                    for p in positions:
+                        sequence.append(directions[p])
+                    bestScoreNode = searchNeighbors(neighborNode)
+                    sequence.append(action)
+                    lastThreeActions = bestScoreNode.traceback()
+                    for act in lastThreeActions:
+                        sequence.append(act)
+                    list(reversed(sequence))
+                    print ('after finding sequence is length {} and is {}'.format(len(sequence), sequence))                        
+                    #direction = 'Directions.' + sequence.pop().upper()
+                    #print('returning direction as {}'.format(direction))
+                    sequenceLength += 1
+                    move = sequence.pop()
+                    return(ReturnDirections(move))
+
 
 class GeneticAgent(Agent):
     # Initialization Function: Called one time when the game starts
