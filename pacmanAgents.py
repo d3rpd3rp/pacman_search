@@ -98,12 +98,10 @@ class GreedyAgent(Agent):
         return random.choice(bestActions)
 
 def searchNeighbors(neighbor):
-    global sequence, successorCallCount 
+    global sequence 
     bestScoreNode = neighbor
     legal = neighbor.state.getLegalPacmanActions()
     for action in legal:
-        #print('neighbor has all the possible actions: {}'.format(legal))
-        successorCallCount += 1
         secondNeighborNode = Node(neighbor.state.generatePacmanSuccessor(action), neighbor, action)
         if secondNeighborNode.state.isWin():
             #need to field this in the return somewhere
@@ -111,7 +109,6 @@ def searchNeighbors(neighbor):
         elif secondNeighborNode.state.isLose():
             continue
         if secondNeighborNode.score > bestScoreNode.score:
-            print('in seachNeighbors, assigning best score as {}'.format(bestScoreNode.score))
             bestScoreNode = secondNeighborNode
             lastAction = action
         #already took two actions to get second neighbor, so only need a depth of 3 to return a max seq length of 4
@@ -120,46 +117,34 @@ def searchNeighbors(neighbor):
             bestScoreNode = secondNeighborSearchBestNode
             lastAction = action
     print ('search Neighbors returns Node is now of type {} and has score {}'.format(type(bestScoreNode), bestScoreNode.score))
+    sequence.append(secondNeighborNode.prevAction)
     sequence.append(lastAction)
+    print('sequence from searchNeighbors is now {}'.format(sequence))
     return (bestScoreNode)
 
 def depthLimitedDFS (nextNeighbor, depth, limit, bestScoreNode):
-    #print('in limited DFS...bestScoreNode is of type {}'.format(type(bestScoreNode)))
     legal = nextNeighbor.state.getLegalPacmanActions()
     for action in legal:
-        global successorCallCount 
-        successorCallCount += 1
         nextState = nextNeighbor.state.generatePacmanSuccessor(action)
         if nextState is not None: 
             nextNode = Node(nextState, nextNeighbor, action)
             if nextNode.state.isLose():
-                if nextNode.score > bestScoreNode.score:
-                    #print('in dlDFS - lost state, assigning best score as {}'.format(bestScoreNode.score))
-                    bestScoreNode = nextNode
                 continue
             elif nextNode.state.isWin():
-                if nextNode.score > bestScoreNode.score:
-                    #print('in dlDFS - win state, assigning best score as {}'.format(bestScoreNode.score))
-                    bestScoreNode = nextNode 
-                    #winning state is terminal
-                    return (bestScoreNode)
+                bestScoreNode = nextNode 
+                #winning state is terminal
+                return (bestScoreNode)
             else:
                 if depth <= limit:
                     if nextNode.score > bestScoreNode.score:
-                        #print('in dlDFS - depth less than limit state, assigning best score as {}'.format(bestScoreNode.score))
                         bestScoreNode = nextNode
-                        #print('in limited DFS...searching from node at depth {} with score {}'.format(depth, nextNode.score))
                     depth += 1
                     depthLimitedDFS(nextNode, depth, limit, bestScoreNode)
                 else:
                     if nextNode.score > bestScoreNode.score:
-                        #print('in dlDFS - exceeded limit state, assigning best score as {}'.format(bestScoreNode.score))
                         bestScoreNode = nextNode
         else:
             continue
-    #print('returning node with score {} as bestScoreNode from DFS.'.format(bestScoreNode.score))
-    #sequence = bestScoreNode.traceback()
-    #print ('in dfs sequence is length {} and is {}'.format(len(sequence), sequence))  
     return (bestScoreNode)
 
 def ReturnDirections(move):
@@ -198,10 +183,7 @@ def findHighScoreKey(nodeDict):
 
 class HillClimberAgent(Agent):
     #some global counters
-    global successorCallCount, knownStates, sequenceLength, sequence
-    sequenceLength = 0
-    successorCallCount = 0
-    knownStates = { }
+    global sequence
     #must initialize to keep slots for sequence open
     sequence = [ ]
     # Initialization Function: Called one time when the game starts
@@ -210,25 +192,20 @@ class HillClimberAgent(Agent):
 
     # GetAction Function: Called with every frame
     def getAction(self, state):
-        #runs in set of five actions, so need counter to control
-        global sequenceLength, sequence
+        global sequence
         while sequence:
-            print ('sequence is length {} and is {}'.format(len(sequence), sequence))                        
-            #direction = 'Directions.' + sequence.pop().upper()
-            sequenceLength += 1
             directions = state.getAllPossibleActions()
             randomSequence = random.sample(directions, len(directions))
             if random.choice((True, False)):
                 move = sequence.pop()
                 randomSequence.pop()
             else:
+                print('choosing random action.')
                 move = randomSequence.pop()
                 sequence.pop()
+            print('sequence in while loop is {}'.format(sequence))
             return(ReturnDirections(move))
 
-        print('sequenceLength is now {}'.format(sequenceLength))
-        #add first entry to dict of known states, for future optimization of not recomputing known state spaces
-        knownStates[state] = scoreEvaluation(state)
         #consider the request the root of search and create root (start) node
         startNode = Node(state)
         #initialize the bestNeighborNodes list (small dictionary of score, stop node)
@@ -236,16 +213,9 @@ class HillClimberAgent(Agent):
         firstActions = { }
         legal = state.getLegalPacmanActions()
         for action in legal:
-            global successorCallCount 
-            successorCallCount += 1
             nextState = state.generatePacmanSuccessor(action)
             if nextState:
                 neighborNode = Node(state.generatePacmanSuccessor(action), startNode, action)
-                #test if this state is identical to a previous state from actions loop line 162
-                #but does it loop "STOP?"
-                #if knownStates[state]:
-                    #continue
-                #not sure if test is going to break something...
                 if neighborNode.state.isLose():
                     #do I need to consider if this node has a high score on it's path somewhere?
                     continue
@@ -255,18 +225,16 @@ class HillClimberAgent(Agent):
                     randomSequence = random.sample(directions, len(directions))
                     bestScoreNode = searchNeighbors(neighborNode)
                     sequence.append(action)
-                    lastThreeActions = bestScoreNode.traceback()
-                    for act in lastThreeActions:
-                        sequence.append(act)
+                    lastKnownActions = bestScoreNode.traceback()
+                    for k in lastKnownActions:
+                        sequence.append(k)
                     list(reversed(sequence))
-                    print ('after finding sequence is length {} and is {}'.format(len(sequence), sequence))                        
-                    #direction = 'Directions.' + sequence.pop().upper()
-                    #print('returning direction as {}'.format(direction))
-                    sequenceLength += 1
+                    print('sequence in else init is {}'.format(sequence))
                     if random.choice((True, False)):
                         move = sequence.pop()
                         randomSequence.pop()
                     else:
+                        print('choosing random action.')
                         move = randomSequence.pop()
                         sequence.pop()
                     return(ReturnDirections(move))
