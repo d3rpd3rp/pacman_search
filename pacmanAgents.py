@@ -97,55 +97,27 @@ class GreedyAgent(Agent):
         # return random action from the list of the best actions
         return random.choice(bestActions)
 
-def searchNeighbors(neighbor):
-    global sequence 
-    bestScoreNode = neighbor
-    legal = neighbor.state.getLegalPacmanActions()
-    for action in legal:
-        secondNeighborNode = Node(neighbor.state.generatePacmanSuccessor(action), neighbor, action)
-        if secondNeighborNode.state.isWin():
-            #need to field this in the return somewhere
-            return secondNeighborNode
-        elif secondNeighborNode.state.isLose():
-            continue
-        if secondNeighborNode.score > bestScoreNode.score:
-            bestScoreNode = secondNeighborNode
-            lastAction = action
-        #already took two actions to get second neighbor, so only need a depth of 3 to return a max seq length of 4
-        secondNeighborSearchBestNode = depthLimitedDFS(secondNeighborNode, 2, 5, bestScoreNode)
-        if secondNeighborSearchBestNode.score > bestScoreNode.score:
-            bestScoreNode = secondNeighborSearchBestNode
-            lastAction = action
-    print ('search Neighbors returns Node is now of type {} and has score {}'.format(type(bestScoreNode), bestScoreNode.score))
-    sequence.append(secondNeighborNode.prevAction)
-    sequence.append(lastAction)
-    print('sequence from searchNeighbors is now {}'.format(sequence))
-    return (bestScoreNode)
-
-def depthLimitedDFS (nextNeighbor, depth, limit, bestScoreNode):
-    legal = nextNeighbor.state.getLegalPacmanActions()
-    for action in legal:
-        nextState = nextNeighbor.state.generatePacmanSuccessor(action)
-        if nextState is not None: 
-            nextNode = Node(nextState, nextNeighbor, action)
-            if nextNode.state.isLose():
-                continue
-            elif nextNode.state.isWin():
-                bestScoreNode = nextNode 
-                #winning state is terminal
-                return (bestScoreNode)
+def hillClimber(state, sequence):
+    #consider the request the root of search and create root (start) node
+    print ('sequence at beginning of hillClimber is {}'.format(sequence))
+    for index in range(0, (len(sequence) - 1)):
+        nextState = state.generatePacmanSuccessor(sequence[index])
+        if random.choice((True, False)):
+            if nextState.isWin():
+                    return(nextState, sequence) 
+            elif nextState.isLose():
+                while nextState.isLose():
+                    sequence[index] = random.choice(nextState.getAllPossibleActions())
+                    nextState = nextState.generatePacmanSuccessor(sequence[index])
+                    print('found losing state in hillclimber.')
             else:
-                if depth <= limit:
-                    if nextNode.score > bestScoreNode.score:
-                        bestScoreNode = nextNode
-                    depth += 1
-                    depthLimitedDFS(nextNode, depth, limit, bestScoreNode)
-                else:
-                    if nextNode.score > bestScoreNode.score:
-                        bestScoreNode = nextNode
+                    sequence[index] = random.choice(nextState.getAllPossibleActions())
+                    nextState = nextState.generatePacmanSuccessor(sequence[index])
         else:
+            nextState = state.generatePacmanSuccessor(sequence[index])
             continue
-    return (bestScoreNode)
+    print ('sequence at the end of hillClimber is {}'.format(sequence))  
+    return (nextState, sequence)
 
 def ReturnDirections(move):
     if move == 'East':
@@ -182,62 +154,60 @@ def findHighScoreKey(nodeDict):
     return (maxKey)
 
 class HillClimberAgent(Agent):
-    #some global counters
-    global sequence
-    #must initialize to keep slots for sequence open
-    sequence = [ ]
     # Initialization Function: Called one time when the game starts
     def registerInitialState(self, state):
         return
 
     # GetAction Function: Called with every frame
     def getAction(self, state):
-        global sequence
-        while sequence:
-            directions = state.getAllPossibleActions()
-            randomSequence = random.sample(directions, len(directions))
-            if random.choice((True, False)):
-                move = sequence.pop()
-                randomSequence.pop()
-            else:
-                print('choosing random action.')
-                move = randomSequence.pop()
-                sequence.pop()
-            print('sequence in while loop is {}'.format(sequence))
-            return(ReturnDirections(move))
-
         #consider the request the root of search and create root (start) node
-        startNode = Node(state)
-        #initialize the bestNeighborNodes list (small dictionary of score, stop node)
-        bestNeighborNodes = { }
-        firstActions = { }
-        legal = state.getLegalPacmanActions()
-        for action in legal:
-            nextState = state.generatePacmanSuccessor(action)
-            if nextState:
-                neighborNode = Node(state.generatePacmanSuccessor(action), startNode, action)
-                if neighborNode.state.isLose():
-                    #do I need to consider if this node has a high score on it's path somewhere?
-                    continue
-                else:
-                    #must initialize to keep slots for sequence open
-                    directions = state.getAllPossibleActions()
-                    randomSequence = random.sample(directions, len(directions))
-                    bestScoreNode = searchNeighbors(neighborNode)
-                    sequence.append(action)
-                    lastKnownActions = bestScoreNode.traceback()
-                    for k in lastKnownActions:
-                        sequence.append(k)
-                    list(reversed(sequence))
-                    print('sequence in else init is {}'.format(sequence))
-                    if random.choice((True, False)):
-                        move = sequence.pop()
-                        randomSequence.pop()
-                    else:
-                        print('choosing random action.')
-                        move = randomSequence.pop()
-                        sequence.pop()
-                    return(ReturnDirections(move))
+        initRandomSequence = [ ]
+        initRandomSequence.append(random.choice(state.getAllPossibleActions()))
+        firstAction = initRandomSequence[0]
+        #print ('initRandomSequence is {}'.format(initRandomSequence))
+        nextState = state.generatePacmanSuccessor(firstAction)
+        #win return next direction to win NOW
+        if nextState.isWin():
+            return initRandomSequence[0]
+        #lose need to keep testing AllPossibleActions, could endlessly loop?
+        elif nextState.isLose():
+            while nextState.isLose():
+                print('found losing state in second state of agent call.')
+                initRandomSequence.pop()
+                initRandomSequence.append(random.choice(state.getAllPossibleActions()))
+                nextState = state.generatePacmanSuccessor(initRandomSequence[0])         
+        else:
+            while len(initRandomSequence) < 5:
+                initRandomSequence.append(random.choice(nextState.getAllPossibleActions()))
+                nextState = nextState.generatePacmanSuccessor(initRandomSequence[len(initRandomSequence) - 1])
+                if nextState.isWin():
+                    continue 
+                elif nextState.isLose():
+                    while nextState.isLose():
+                        print('found losing state in random sequence building of agent call.')
+                        initRandomSequence.pop()
+                        initRandomSequence.append(random.choice(nextState.getAllPossibleActions()))
+                        nextState = state.generatePacmanSuccessor(initRandomSequence[len(initRandomSequence) - 1])
+            #print ('initRandomSequence is after generating full sequence {}'.format(initRandomSequence))
+            sequence = initRandomSequence
+            hillClimberState, hillClimberSequence = hillClimber(state, sequence)
+            if scoreEvaluation(hillClimberState) > scoreEvaluation(nextState):
+                print('choosing hillClimber with score of {}'.format(scoreEvaluation(hillClimberState)))
+                return(hillClimberSequence[0])
+            else:
+                print('choosing default sequence with score of {}'.format(scoreEvaluation(nextState)))
+                return(sequence[0])
+
+        """
+                    function HILL-CLIMBING(pmblem) 
+                    returns a state that is a local maximum
+                    current = MAKE-NODE(problem.lNITIAL-STATE)
+                    loop do
+                        neighbor = a highest-valued successor of curTent
+                        if neighbor.VALUE <= current.VALUE then return current.STATE
+                        current = neighbor
+        """      
+                 
 
 
 class GeneticAgent(Agent):
