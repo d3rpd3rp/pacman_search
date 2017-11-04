@@ -18,6 +18,12 @@ from heuristics import *
 import random
 import math
 
+class chromActionSequence:
+    def __init__ (self, sequence):
+        self.seq = sequence
+        self.score = 0
+        self.rank = 0
+
 class RandomAgent(Agent):
     # Initialization Function: Called one time when the game starts
     def registerInitialState(self, state):
@@ -74,6 +80,18 @@ class GreedyAgent(Agent):
         return random.choice(bestActions)
 
 class HillClimberAgent(Agent):
+    """
+    NOTES
+    1. To initialize a sequence, pick five random actions from the ones returned by a getAllPossibleActions call.
+
+    2. "Always return the first action from the sequence with the highest scoreEvaluation." 
+
+    We are sorry if this sentence sounded ambiguous as some reported. It doesn't mean you have to generate multiple 
+    sequences for the hill climber algorithm.  You have only one sequence with 5 actions. You return the one which 
+    points you to the highest scoreEvaluation(state). Then, each action in the sequence has 50% chance to be changed 
+    by random action.
+    """
+
     # Initialization Function: Called one time when the game starts
     def registerInitialState(self, state):
         global finalSeq
@@ -111,7 +129,38 @@ class GeneticAgent(Agent):
 
     # GetAction Function: Called with every frame
     def getAction(self, state):
-        # TODO: write Genetic Algorithm instead of returning Directions.STOP
+        chroms = []
+        popSize = 8
+        for i in range(0, popSize):
+            nextChrom = chromActionSequence(buildRandomSequence(state))
+            nextChrom.score, nextChrom.seq = scoreAndTruncateActionSeq(state, nextChrom.seq)
+            chroms.append(nextChrom)
+        #print('size of chroms is now {}'.format(len(chroms)))
+        #sorts from low to high
+        chroms.sort(key = lambda x: x.score)
+        #print ('chrom scores are now:')
+        for j in range(0, len(chroms)):
+            #print ('{}'.format(chroms[j].score))
+            chroms[j].rank = j + 1
+        #print ('chrom ranks are now:')
+        #for k in range(0, len(chroms)):
+            #print ('{}'.format(chroms[k].rank))
+        #need to cycle through whole population
+        mom, dad = rankSelect(chroms)
+        print('mom has rank {} and score {}, dad has rank {} and score {}'.format(mom.rank, mom.score, dad.rank, dad.score))
+        if random.random <= 0.70:
+            firstChild = crossover(mom, dad)
+            secondChild = crossover(mom, dad)
+            print ('mom\'s sequence is {}'.format(mom.seq))
+            print ('dad\'s sequence is {}'.format(dad.seq))
+            print('firstChild seq is {}'.format(firstChild.seq))
+            print('secondChild seq is {}'.format(secondChild.seq))
+            #find and remove mom, dad from chroms (population)
+        for k in range(0, len(chroms)):
+            if random.random <= 0.10:
+                chrom[k] = mutateAction(chrom[k], state)
+        
+
         return Directions.STOP
 
 class MCTSAgent(Agent):
@@ -150,13 +199,43 @@ def scoreAndTruncateActionSeq(state, sequence):
             print('Lost in scoring computation, sequence returned is {}'.format(sequence))
             return (score, sequence)
         elif nextState.isWin():
-            score = scoreEvaluation(state)
+            score = scoreEvaluation(nextState)
             return (score, sequence)
         else:
            continue
     score = scoreEvaluation(nextState)
     return (score, sequence)
-    
+
+def rankSelect(chroms):
+    for i in range(0, len(chroms)):
+        rankFactor = chroms[i].rank - 1
+        if rankFactor > 0:
+            for j in range(0, rankFactor):
+                chroms.append(chroms[i])
+        else:
+            continue
+    mom = random.choice(chroms)
+    dad = random.choice(chroms)
+    while dad.rank == mom.rank:
+        dad = random.choice(chroms)
+    return(mom, dad)
+
+def crossover(mom, dad):
+    child = chromActionSequence(mom.seq)
+    for i in range(0, len(mom.seq)):
+        inheritanceTestValue = random.random()
+        #print('inheritanceTestValue is {}'.format(inheritanceTestValue))
+        if inheritanceTestValue > 0.50:
+            #print('assigning dad\'s action...')
+            child.seq[i] = dad.seq[i]
+    return (child)
+
+def mutateAction(chrom, state):
+    randIndex = random.randint(0, 5)
+    randActionList = buildRandomSequence(state)
+    chrom[randIndex] = randActionList[0]
+    return (chrom)
+
 def returnDirections(move):
     if move == ('East' or 'EAST'):
         return Directions.EAST 
