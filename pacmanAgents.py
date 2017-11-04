@@ -84,7 +84,7 @@ class HillClimberAgent(Agent):
     def getAction(self, state):
         global finalSeq
         if len(finalSeq) < 1:
-            randSeq = hillClimbBuildRandomSequence(state)
+            randSeq = buildRandomSequence(state)
             hillClimbSeq = hillClimbBuildNeighborSequence(state, randSeq)
             hillClimbScore, hillClimbSeq = scoreAndTruncateActionSeq(state, hillClimbSeq)
             randScore, randSeq = scoreAndTruncateActionSeq(state, randSeq)
@@ -96,10 +96,11 @@ class HillClimberAgent(Agent):
                 print('chose hillClimber sequence with score {}'.format(randScore))
             #reverse list to pop actions
             finalSeq.reverse()
+            print('executing action {} in list.'.format(finalSeq[len(finalSeq) - 1]))
             nextAction = returnDirections(finalSeq.pop())
             return (nextAction)
         else:
-            print('execution action number {} in list.'.format(len(finalSeq)))
+            print('executing action {} in list.'.format(finalSeq[len(finalSeq) - 1]))
             nextAction = returnDirections(finalSeq.pop())
             return (nextAction)
 
@@ -123,7 +124,7 @@ class MCTSAgent(Agent):
         # TODO: write MCTS Algorithm instead of returning Directions.STOP
         return Directions.STOP
 
-def hillClimbBuildRandomSequence(state):
+def buildRandomSequence(state):
     sequence = [None] * 5
     for index in range(0, 5):
         sequence[index] = random.choice(state.getAllPossibleActions())
@@ -144,7 +145,6 @@ def scoreAndTruncateActionSeq(state, sequence):
     for index in range(0, len(sequence) - 1):
         nextState = state.generatePacmanSuccessor(sequence[index])
         if nextState.isLose():
-            #[seq[i:i+3] for i in range(0,len(seq),3)]
             sequence = [sequence[i] for i in range(0, index)]
             score = scoreEvaluation(state)
             print('Lost in scoring computation, sequence returned is {}'.format(sequence))
