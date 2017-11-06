@@ -158,7 +158,7 @@ class GeneticAgent(Agent):
                 #print('before filter population is sized {}'.format(len(population)))
                 #are there chances the same sequence exists elsewhere? 
                 population = filter(lambda x: ((x.seq is not mom.seq) and (x.seq is not dad.seq)), population)
-                print('after filter population is {}'.format(population))
+                #print('after filter population is {}'.format(population))
                 population.append(firstChild)
                 population.append(secondChild)
                 #print('after adding children population is sized {}'.format(len(population)))
@@ -193,11 +193,11 @@ class GeneticAgent(Agent):
 class MCTSAgent(Agent):
     # Initialization Function: Called one time when the game starts
     def registerInitialState(self, state):
-        return;
+        return
 
     # GetAction Function: Called with every frame
     def getAction(self, state):
-        # TODO: write MCTS Algorithm instead of returning Directions.STOP
+        
         return Directions.STOP
 
 def buildRandomSequence(state):
@@ -223,10 +223,14 @@ def scoreAndTruncateActionSeq(state, sequence):
         nextState = state.generatePacmanSuccessor(sequence[index])
         if nextState.isLose():
             sequence = [sequence[i] for i in range(0, index)]
-            score = scoreEvaluation(state)
-            print('Lost in scoring computation, sequence returned is {}'.format(sequence))
+            score = scoreEvaluation(nextState)
+            print('Lost in scoring computation, sequence returned is {}, length is {}'.format(sequence, len(sequence)))
             if len(sequence) == 0:
-                sequence.append('Stop')
+                while nextState.isLose():
+                    randSeq = buildRandomSequence(state)
+                    randIndex = random.randint(0, (len(randSeq) - 1))
+                    nextState = state.generatePacmanSuccessor(randSeq[randIndex])
+                sequence.append(randSeq[randIndex])
             return (score, sequence)
         elif nextState.isWin():
             score = scoreEvaluation(nextState)
@@ -252,6 +256,7 @@ def rankSelect(population):
         randomIndex = random.choice(indices)
         mom = chromActionSequence(population[randomIndex].seq)
         dad = chromActionSequence(population[abs(randomIndex - 1)].seq)
+        print('rand index is {} and abs of that minus one is {}'.format(randomIndex, abs(randomIndex - 1)))
         mom.selected = True
         dad.selected = True
         print('inside only two left...mom is {} and dad is {}'.format(mom, dad))
@@ -285,24 +290,23 @@ def crossover(mom, dad):
     child.selected = True
     lengthDiff = len(child.seq) - len(dad.seq)
     if lengthDiff < 0:
-        for i in range(0, len(child.seq) - 1):
+        for i in range(0, len(child.seq)):
             inheritanceTestValue = random.random()
-            #print('inheritanceTestValue is {}'.format(inheritanceTestValue))
             if inheritanceTestValue > 0.50:
                 child.seq[i] = dad.seq[i]
         for k in range(lengthDiff, len(dad.seq)):
             child.seq.append(dad.seq[k])
+        print('crossover if statement, child.seq is {}'.format(child.seq))
     else:    
-        for i in range(0, len(dad.seq) - 1):
+        for j in range(0, len(dad.seq)):
             inheritanceTestValue = random.random()
-            #print('inheritanceTestValue is {}'.format(inheritanceTestValue))
             if inheritanceTestValue > 0.50:
-                #print('assigning dad\'s action...')
-                child.seq[i] = dad.seq[i]
-    return (child)
+                child.seq[j] = dad.seq[j]
+        print('crossover else statement, child seq is {}'.format(child.seq))
+    return(child)
 
 def mutateAction(chrom, state):
-    randIndex = random.randint(0, len(chrom.seq) - 1)
+    randIndex = random.randint(0, min((len(chrom.seq) - 1), 4))
     randActionList = buildRandomSequence(state)
     print('length of the given chrom is {} length of random seq is {} and randIndex is {}'.format(len(chrom.seq), len(randActionList), randIndex))
     chrom.seq[randIndex] = randActionList[randIndex]
@@ -335,3 +339,4 @@ def countUnselectedPopMembers(population):
 def printPopRanks(population):
     for index in range(0, len(population)):
         print('Index {} in population is rank {} and score {}'.format(index, population[index].rank, population[index].score))
+        print('population sequence is {}'.format(population[index].seq))
