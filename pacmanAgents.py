@@ -23,7 +23,18 @@ class chromActionSequence:
         self.seq = sequence
         self.score = 0
         self.rank = 0
-        self.selected = False
+        self.selected = False     
+
+class mctsNode:
+    def __init__ (self, parent = None, score = 0, visited = False, prevAction = None, fullExpansion = False, visitCount = 0, terminal = False):
+        self.parent = parent
+        self.score = score
+        self.prevAction = prevAction
+        self.visited = visited
+        self.fullExpansion = fullExpansion
+        self.children = [ ]
+        self.visitCount = visitCount
+        self.terminal = terminal  
 
 class RandomAgent(Agent):
     # Initialization Function: Called one time when the game starts
@@ -197,8 +208,111 @@ class MCTSAgent(Agent):
 
     # GetAction Function: Called with every frame
     def getAction(self, state):
-        
-        return Directions.STOP
+        global UTCSearchTree
+        UTCSearchTree = [ ]
+        bestChildAction = UTCSearch(state)
+        print('UTCSearch returned {}'.format(bestChildAction))
+        return returnDirections(bestChildAction)
+
+def UTCSearch(rootState):
+    global UTCSearchTree
+    rootNode = mctsNode(visitCount = 1)
+    currentState = rootState
+    UTCSearchTree.append(rootNode)
+    while rootState.generatePacmanSuccessor(random.choice(rootState.getLegalPacmanActions())) is not None:
+        lastNode, lastState = treePolicy(rootNode, currentState)
+        print('inside for loop of UTCSearch, current state is type {}'.format(type(currentState)))
+        terminalStateReward = defaultPolicy(lastState)
+        #backup
+        backup(lastNode, lastState, rootState)
+    #here we return the action which resulted in the "best child"
+    #constant down to 0 for this one to remove second term
+    constant = 0
+    bChild, bsChild = bestChild(rootNode, rootState, 0)    
+    return bChild.prevAction
+
+def treePolicy(node, state):
+    currentState = state
+    while not (currentState.isLose() or currentState.isWin()):
+        if not node.fullExpansion:
+            return expand(node, state)
+        else:
+            #constant of 1 as given by assignment document
+            constant = 1
+            node, state = bestChild(node, currentState, constant)
+    return (node, state)
+
+def expand(node, currentState):
+    global UTCSearchTree
+    legalActions = currentState.getLegalPacmanActions()
+    for action in legalActions:
+        childNode = mctsNode(parent = node, prevAction = action, visitCount = 1)
+        node.children.append(childNode)
+        UTCSearchTree.append(childNode)
+    #returning a node that has all of its children added
+    node.fullExpansion = True
+    UTCSearchTree.append(node)
+    return (node, currentState)
+
+
+def bestChild(node, currentState, constant):
+    #not sure what value to initialize here...
+    max = float("-inf")
+    for child in node.children:
+        print('In best child, child has score of {}'.format(child.score))
+        #constant of 1 as given in the instructions
+        cScore, cState = childScore(child, node, currentState, 1)
+        if cScore >= max:
+            print('assigning bChild...')
+            max = cScore
+            bChild = child
+            bcState = cState
+    print('best child was sent {} node.'.format(node))
+    if node is not None:
+        print('With {} children.'.format(len(node.children)))
+    return (bChild, bcState)
+
+def childScore(child, node, currentState, constant):
+    childState = currentState.generatePacmanSuccessor(node.prevAction)
+    if childState is not None:
+        currentBestChildScore = (scoreEvaluation(childState) / child.visitCount) + (constant * (math.sqrt((2 * math.lgamma(node.visitCount) / child.visitCount))))
+        print('childState not none, score of {}',format(currentBestChildScore))
+        return (currentBestChildScore, childState)
+    else:
+        return (float("-inf"), currentState)
+
+def defaultPolicy(lastState):
+    currentState = lastState
+    print('inside default policy currentState is of type {}'.format(type(currentState)))
+    if ((not currentState.isLose()) and (not currentState.isWin())):
+       for i in range(0, 5):
+            print('inside default policy for loop, legal actions are {}'.format(currentState.getLegalPacmanActions()))
+            action = random.choice(currentState.getLegalPacmanActions())
+            nextState = lastState.generatePacmanSuccessor(action)
+            if nextState is not None: 
+                if (not nextState.isLose()) and (not nextState.isLose()):
+                    currentState = nextState
+            else:
+                break
+    print('in default policy currentState is type {}\n and has actions {}'.format(type(currentState), currentState.getLegalPacmanActions()))
+    return currentState    
+
+def backup(lastNode, lastState, rootState):
+    node = lastNode
+    currentState = lastState.generatePacmanSuccessor(node.prevAction)
+    while (node and currentState) is not None and not (currentState.isWin() or currentState.isLose()):
+        node.visitCount += 1
+        node.score = node.score + normalizedScoreEvaluation(rootState, currentState)
+        currentState = currentState.generatePacmanSuccessor(node.prevAction)
+        node = node.parent
+
+def isTerminal(state):
+    if state.isWin():
+        return True
+    elif state.isLose():
+        return True
+    else:
+        return False
 
 def buildRandomSequence(state):
     sequence = [None] * 5
