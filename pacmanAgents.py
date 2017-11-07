@@ -26,7 +26,7 @@ class chromActionSequence:
         self.selected = False     
 
 class mctsNode:
-    def __init__ (self, parent = None, score = 0, visited = False, prevAction = None, fullExpansion = False, visitCount = 0, terminal = False):
+    def __init__ (self, parent = None, score = float("-inf"), visited = False, prevAction = None, fullExpansion = False, visitCount = 0, terminal = False):
         self.parent = parent
         self.score = score
         self.prevAction = prevAction
@@ -209,7 +209,7 @@ class MCTSAgent(Agent):
     # GetAction Function: Called with every frame
     def getAction(self, state):
         global UTCSearchTree
-        UTCSearchTree = [ ]
+        UTCSearchTree = []
         bestChildAction = UTCSearch(state)
         print('UTCSearch returned {}'.format(bestChildAction))
         return returnDirections(bestChildAction)
@@ -219,100 +219,157 @@ def UTCSearch(rootState):
     rootNode = mctsNode(visitCount = 1)
     currentState = rootState
     UTCSearchTree.append(rootNode)
-    while rootState.generatePacmanSuccessor(random.choice(rootState.getLegalPacmanActions())) is not None:
-        lastNode, lastState = treePolicy(rootNode, currentState)
-        print('inside for loop of UTCSearch, current state is type {}'.format(type(currentState)))
-        terminalStateReward = defaultPolicy(lastState)
-        #backup
-        backup(lastNode, lastState, rootState)
+    lastNode, lastState = treePolicy(rootNode, currentState)
+    #print('inside for loop of UTCSearch, current state is type {}'.format(type(currentState)))
+    terminalStateReward = normalizedScoreEvaluation(rootState, defaultPolicy(lastState))
+    #backup
+    backup(lastNode, lastState, rootState, terminalStateReward)
     #here we return the action which resulted in the "best child"
     #constant down to 0 for this one to remove second term
     constant = 0
-    bChild, bsChild = bestChild(rootNode, rootState, 0)    
+    print('calling best child from UTC search....tree is size {}.'.format(len(UTCSearchTree)))
+    #for i in range(0, len(UTCSearchTree) - 1): 
+        #UTCSearchTree[i].__init__.__dict__
+        #print('UTCSearchTree[i] is of type {}'.format(type(UTCSearchTree[i])))
+    #temp return for UTCSearch    
+    bChild, bsChild = bestChild(UTCSearchTree[random.randint(0, len(UTCSearchTree)) - 1], rootState, 0)    
     return bChild.prevAction
 
 def treePolicy(node, state):
+    global UTCSearchTree
     currentState = state
-    while not (currentState.isLose() or currentState.isWin()):
-        if not node.fullExpansion:
-            return expand(node, state)
-        else:
-            #constant of 1 as given by assignment document
-            constant = 1
-            node, state = bestChild(node, currentState, constant)
-    return (node, state)
+    #print('inside tree policy currentState is {}.'.format(currentState))
+    while isNotTerminal(currentState):
+        if isNotTerminal(currentState) is False:
+            return(node,state)
+        elif isNotTerminal(currentState):
+            #print('inside tree policy in non terminal state.')
+            if not node.fullExpansion:
+                node = expand(node, state)
+            else:
+                print('inside else for node expanded...')
+                #constant of 1 as given by assignment document
+                constant = 1
+                bcNode, bcState = bestChild(node, currentState, constant)
+                print('assigning bcState as current state...and adding children...')
+                legalActions = bcState.getLegalPacmanActions()
+                for action in legalActions:
+                    childNode = mctsNode(parent = node, prevAction = action, visitCount = 1)
+                    searchUTCListUpdate(childNode)
+                    bcNode.children.append(childNode)
+                currentState = bcState                
 
 def expand(node, currentState):
     global UTCSearchTree
     legalActions = currentState.getLegalPacmanActions()
     for action in legalActions:
         childNode = mctsNode(parent = node, prevAction = action, visitCount = 1)
-        node.children.append(childNode)
-        UTCSearchTree.append(childNode)
+        searchUTCListUpdate(childNode)
+        print('expanding child...')
     #returning a node that has all of its children added
     node.fullExpansion = True
-    UTCSearchTree.append(node)
-    return (node, currentState)
+    return(node)
 
 
 def bestChild(node, currentState, constant):
+    global UTCSearchTree
     #not sure what value to initialize here...
     max = float("-inf")
+    if node is not None:
+        print('{} children in best child.'.format(len(node.children)))
+        print('size of UTCtree before loop is {}'.format(len(UTCSearchTree)))
     for child in node.children:
-        print('In best child, child has score of {}'.format(child.score))
+        pIndex = 0
+        cIndex = 0
+        for i in range(0, len(UTCSearchTree)):
+            if node == UTCSearchTree[i]:
+                print('scanning children, found node in UTCTree')
+                pIndex = i
+            elif child == UTCSearchTree[i]:
+                print('scanning children, found child in UTCTree')
+                cIndex = i
+            else:
+                continue
         #constant of 1 as given in the instructions
-        cScore, cState = childScore(child, node, currentState, 1)
+        cScore, cState = childScore(child, node, pIndex, cIndex, currentState, 1)
+        UTCSearchTree[cIndex].score = cScore
         if cScore >= max:
             print('assigning bChild...')
             max = cScore
             bChild = child
             bcState = cState
-    print('best child was sent {} node.'.format(node))
-    if node is not None:
-        print('With {} children.'.format(len(node.children)))
+    print('size of UTCtree after loop is {}'.format(len(UTCSearchTree)))
     return (bChild, bcState)
 
-def childScore(child, node, currentState, constant):
-    childState = currentState.generatePacmanSuccessor(node.prevAction)
+def childScore(child, parent, pIndex, cIndex, currentState, constant):
+    global UTCSearchTree
+    childState = currentState.generatePacmanSuccessor(child.prevAction)
     if childState is not None:
-        currentBestChildScore = (scoreEvaluation(childState) / child.visitCount) + (constant * (math.sqrt((2 * math.lgamma(node.visitCount) / child.visitCount))))
-        print('childState not none, score of {}',format(currentBestChildScore))
-        return (currentBestChildScore, childState)
+        childScore = (scoreEvaluation(childState) / UTCSearchTree[cIndex].visitCount) \
+        + (constant * (math.sqrt((2 * math.lgamma(UTCSearchTree[pIndex].visitCount) / UTCSearchTree[cIndex].visitCount))))
+        print('childState not none, score of {}'.format(childScore))
+        return (childScore, childState)
     else:
         return (float("-inf"), currentState)
 
 def defaultPolicy(lastState):
     currentState = lastState
-    print('inside default policy currentState is of type {}'.format(type(currentState)))
-    if ((not currentState.isLose()) and (not currentState.isWin())):
+    #print('inside default policy currentState is of type {}'.format(type(currentState)))
+    if isNotTerminal(currentState):
        for i in range(0, 5):
             print('inside default policy for loop, legal actions are {}'.format(currentState.getLegalPacmanActions()))
-            action = random.choice(currentState.getLegalPacmanActions())
-            nextState = lastState.generatePacmanSuccessor(action)
-            if nextState is not None: 
-                if (not nextState.isLose()) and (not nextState.isLose()):
-                    currentState = nextState
+            if len(currentState.getLegalPacmanActions()) > 0:
+                action = random.choice(currentState.getLegalPacmanActions())
+                nextState = lastState.generatePacmanSuccessor(action)
+                if nextState is not None: 
+                    if isNotTerminal(nextState):
+                        currentState = nextState
+                    else:
+                        break
+                else:
+                    break
             else:
                 break
-    print('in default policy currentState is type {}\n and has actions {}'.format(type(currentState), currentState.getLegalPacmanActions()))
+    #print('in default policy currentState is type {}\n and has actions {}'.format(type(currentState), currentState.getLegalPacmanActions()))
     return currentState    
 
-def backup(lastNode, lastState, rootState):
+def backup(lastNode, lastState, rootState, terminalStateReward):
     node = lastNode
-    currentState = lastState.generatePacmanSuccessor(node.prevAction)
-    while (node and currentState) is not None and not (currentState.isWin() or currentState.isLose()):
+    while node.parent is not None:
         node.visitCount += 1
-        node.score = node.score + normalizedScoreEvaluation(rootState, currentState)
-        currentState = currentState.generatePacmanSuccessor(node.prevAction)
+        node.score = node.score + terminalStateReward
+        searchUTCListUpdate(node)
         node = node.parent
 
-def isTerminal(state):
-    if state.isWin():
-        return True
-    elif state.isLose():
-        return True
+def searchUTCListUpdate(node):
+    global UTCSearchTree
+    """
+    [currentNode for currentNode in UTCSearchTree if node == currentNode] is not None:
+        for i in range(0, len(UTCSearchTree) - 1):
+            if UTCSearchTree[i] == node:
+                print('found the and updating UTCTree.')
+                UTCSearchTree[i] = node
+    """
+    #print('searching uctl list...')
+    found = False
+    for i in range(0, len(UTCSearchTree)):
+        #print('looking at {}'.format(UTCSearchTree[i]))
+        if node == UTCSearchTree[i]:
+            UTCSearchTree[i] = node
+            found = True
+    if found:
+        return
     else:
+        UTCSearchTree.append(node)
+        return    
+
+def isNotTerminal(state):
+    if state.isWin():
         return False
+    elif state.isLose():
+        return False
+    else:
+        return True
 
 def buildRandomSequence(state):
     sequence = [None] * 5
