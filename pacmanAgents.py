@@ -218,27 +218,36 @@ def UTCSearch(rootState):
     global UTCSearchTree
     rootNode = mctsNode(visitCount = 1)
     currentState = rootState
+    legalActions = currentState.getLegalPacmanActions()
+    for action in legalActions:
+        childNode = mctsNode(parent = rootNode, prevAction = action, visitCount = 1)
+        searchUTCListUpdate(childNode)
+        rootNode.children.append(childNode)
+        print('expanding child for root...')
     UTCSearchTree.append(rootNode)
     lastNode, lastState = treePolicy(rootNode, currentState)
     #print('inside for loop of UTCSearch, current state is type {}'.format(type(currentState)))
     terminalStateReward = normalizedScoreEvaluation(rootState, defaultPolicy(lastState))
     #backup
     backup(lastNode, lastState, rootState, terminalStateReward)
+    print('looking for node with most visits....tree is size {}.'.format(len(UTCSearchTree)))
+    bCount = 0
+    for i in range(0, len(UTCSearchTree)):
+        if UTCSearchTree[i].visitCount > bCount:
+            bIndex = i
+        else:
+            continue
+    print('trying to return bChild, bsChild wiht UTCSearchTree[bIndex] as {} and rootState as type{}'.format(UTCSearchTree[bIndex], type(rootState)))
     #here we return the action which resulted in the "best child"
     #constant down to 0 for this one to remove second term
-    constant = 0
-    print('calling best child from UTC search....tree is size {}.'.format(len(UTCSearchTree)))
-    #for i in range(0, len(UTCSearchTree) - 1): 
-        #UTCSearchTree[i].__init__.__dict__
-        #print('UTCSearchTree[i] is of type {}'.format(type(UTCSearchTree[i])))
-    #temp return for UTCSearch    
-    bChild, bsChild = bestChild(UTCSearchTree[random.randint(0, len(UTCSearchTree)) - 1], rootState, 0)    
+    constant = 0  
+    bChild, bsChild = bestChild(UTCSearchTree[bIndex], rootState, 0)    
     return bChild.prevAction
 
 def treePolicy(node, state):
     global UTCSearchTree
     currentState = state
-    #print('inside tree policy currentState is {}.'.format(currentState))
+    print('inside tree policy node has {} children.'.format(len(node.children)))
     while isNotTerminal(currentState):
         if isNotTerminal(currentState) is False:
             return(node,state)
@@ -251,13 +260,18 @@ def treePolicy(node, state):
                 #constant of 1 as given by assignment document
                 constant = 1
                 bcNode, bcState = bestChild(node, currentState, constant)
-                print('assigning bcState as current state...and adding children...')
+                print('assigning bcState as current state...')
+                print('bcNode score is {}'.format(bcNode.score))
                 legalActions = bcState.getLegalPacmanActions()
                 for action in legalActions:
                     childNode = mctsNode(parent = node, prevAction = action, visitCount = 1)
                     searchUTCListUpdate(childNode)
                     bcNode.children.append(childNode)
-                currentState = bcState                
+                    print('adding child to bcNode.')
+                currentState = bcState
+                node = bcNode
+                searchUTCListUpdate(node)
+    return(node, currentState)                
 
 def expand(node, currentState):
     global UTCSearchTree
@@ -292,14 +306,17 @@ def bestChild(node, currentState, constant):
                 continue
         #constant of 1 as given in the instructions
         cScore, cState = childScore(child, node, pIndex, cIndex, currentState, 1)
-        UTCSearchTree[cIndex].score = cScore
-        if cScore >= max:
-            print('assigning bChild...')
-            max = cScore
-            bChild = child
-            bcState = cState
-    print('size of UTCtree after loop is {}'.format(len(UTCSearchTree)))
-    return (bChild, bcState)
+        print('cScore and cState type are {} and {}'.format(cScore, format(cState)))
+        if cState == None:
+            continue
+        else:
+            UTCSearchTree[cIndex].score = cScore
+            if cScore >= max:
+                print('assigning bChild...')
+                max = cScore
+                bChild = child
+                bcState = cState
+        return (bChild, bcState)
 
 def childScore(child, parent, pIndex, cIndex, currentState, constant):
     global UTCSearchTree
@@ -310,6 +327,7 @@ def childScore(child, parent, pIndex, cIndex, currentState, constant):
         print('childState not none, score of {}'.format(childScore))
         return (childScore, childState)
     else:
+        print("childState is {}".format(childState))
         return (float("-inf"), currentState)
 
 def defaultPolicy(lastState):
