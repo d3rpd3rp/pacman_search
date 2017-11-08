@@ -138,26 +138,21 @@ class HillClimberAgent(Agent):
     # GetAction Function: Called with every frame
     def getAction(self, state):
         global finalSeq
-        if len(finalSeq) < 1:
-            randSeq = buildRandomSequence(state)
-            hillClimbSeq = hillClimbBuildNeighborSequence(state, randSeq)
-            hillClimbScore, hillClimbSeq = scoreAndTruncateActionSeq(state, hillClimbSeq)
-            randScore, randSeq = scoreAndTruncateActionSeq(state, randSeq)
-            if randScore > hillClimbScore:
-                finalSeq = randSeq
-                print('chose random sequence with score {}'.format(randScore))
-            else:
-                finalSeq = hillClimbSeq
-                print('chose hillClimber sequence with score {}'.format(randScore))
-            #reverse list to pop actions
-            finalSeq.reverse()
-            print('executing action {} in list.'.format(finalSeq[len(finalSeq) - 1]))
-            nextAction = returnDirections(finalSeq.pop())
-            return (nextAction)
+        randSeq = buildRandomSequence(state)
+        hillClimbSeq = hillClimbBuildNeighborSequence(state, randSeq)
+        hillClimbScore, hillClimbSeq = scoreAndTruncateActionSeq(state, hillClimbSeq)
+        randScore, randSeq = scoreAndTruncateActionSeq(state, randSeq)
+        if randScore > hillClimbScore:
+            finalSeq = randSeq
+            print('chose random sequence with score {}'.format(randScore))
         else:
-            print('executing action {} in list.'.format(finalSeq[len(finalSeq) - 1]))
-            nextAction = returnDirections(finalSeq.pop())
-            return (nextAction)
+            finalSeq = hillClimbSeq
+            print('chose hillClimber sequence with score {}'.format(randScore))
+        #reverse list to pop actions
+        finalSeq.reverse()
+        print('executing action {} in list.'.format(finalSeq[len(finalSeq) - 1]))
+        nextAction = returnDirections(finalSeq.pop())
+        return (nextAction)
 
 class GeneticAgent(Agent):
     # Initialization Function: Called one time when the game starts
